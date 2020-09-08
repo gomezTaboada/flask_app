@@ -6,7 +6,8 @@ Librerias (python3):
   - marshmallow
   - marshmallow-sqlalchemy
   - simplejson
-
+  - pymysql
+  
 3 tablas:
   - contact
   - product
