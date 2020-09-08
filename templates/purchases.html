@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="topnav">
+    <a id="download" href="/../" class="btn btn-danger">MainPage - Contacts</a>
+    <a id="download" href="/../product/" class="btn btn-danger">Products</a>
+    <a id="download" href="/../purchase/" class="btn btn-danger">Purchases</a>
+</div>
+
+<div class="wrapper">
+    <div class="footer">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h2>New Purchase</h2>
+        <form class="info_form"action="../purchase/add_purchase/" method="POST">
+            <label for="contacts" class="select">Contact:</label>
+            <select name="contacts" id="contacts">
+                <option disabled selected value> -- select a contact -- </option>
+                {% for contact in contacts %}
+                <option value="{{ contact.id }}">{{ contact.fullname }}</option>
+                {% endfor %}
+            </select>
+            <label class="select" for="products">Product:</label>
+            <select name="products" id="products">
+                <option disabled selected value> -- select a product -- </option>
+                {% for product in products %}
+                <option value="{{ product.product_id }}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="text" name="purchase_quantity" placeholder="Quantity to buy">        
+            <button type="submit">Save</button>
+        </form>
+
+    </div>
+    <div class="usertable">
+        <h2>Purchases Table</h2>
+        <table>
+            <tr>
+                <th>Contact Name</th>
+                <th>DateTime Purchase</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total ($)</th>
+                <th>Operations</th>
+            </tr>
+            <tbody>
+                {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase.Contact.fullname }}</td>
+                    <td>{{ purchase.Purchase.purchase_datetime }}</td>
+                    <td>{{ purchase.Product.name }}</td>
+                    <td>{{ purchase.Purchase.purchase_quantity }}</td>
+                    <td>{{ purchase.Product.price }}</td>
+                    <td>{{ purchase.Purchase.purchase_quantity * purchase.Product.price }}</td>
+                    <td>
+                        <a href = "/purchase/edit/{{ purchase.Purchase.purchase_id }}">Edit</a>
+                        <a href = "/purchase/delete/{{ purchase.Purchase.purchase_id }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="usertable">
+        <h2>Purchases Report Table</h2>
+        <table>
+            <tr>
+                <th>Contact Name</th>
+                <th># of Purchases</th>
+                <th>Total Spend</th>
+                <th>Average Spend</th>
+            </tr>
+            <tbody>
+                {% for obs in report %}
+                <tr>
+                    <td>{{ obs.fullname }}</td>
+                    <td>{{ obs.purchase_count }}</td>
+                    <td>{{ obs.total_spend }}</td>
+                    <td>{{ obs.avg_spend }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

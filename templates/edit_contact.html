@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="topnav">
+    <a id="download" href="/../../" class="btn btn-danger">MainPage - Contacts</a>
+    <a id="download" href="/../../product/" class="btn btn-danger">Products</a>
+    <a id="download" href="/../../purchase/" class="btn btn-danger">Purchases</a>
+</div>
+
+<div class="wrapper">
+    <div class="footer">
+        <h2>Edit User</h2>
+        <form class="info_form"action="/contact/update/{{contact.id}}" method="POST">
+            <input type="text" name="fullname" value="{{contact.fullname}}">
+            <input type="text" name="phone" value={{contact.phone}}>
+            <input type="text" name="email" value={{contact.email}}>
+        
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

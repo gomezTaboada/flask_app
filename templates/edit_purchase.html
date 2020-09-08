@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="topnav">
+    <a id="download" href="/../../" class="btn btn-danger">MainPage - Contacts</a>
+    <a id="download" href="/../../product/" class="btn btn-danger">Products</a>
+    <a id="download" href="/../../purchase/" class="btn btn-danger">Purchases</a>
+</div>
+
+<div class="wrapper">
+    <div class="footer">
+        <h2>Edit Purchase</h2>
+        <form class="info_form"action="/purchase/update/{{purchase.Purchase.purchase_id}}" method="POST">
+            <label for="contacts" class="select">Contact:</label>
+            <select name="contacts" id="contacts">
+                <option value= "{{ purchase.Contact.id }}"> {{ purchase.Contact.fullname}} </option>
+                {% for contact in contacts %}
+                {% if contact.id != purchase.Contact.id %}
+                <option value="{{ contact.id }}">{{ contact.fullname }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <label class="select" for="products">Product:</label>
+            <select name="products" id="products">
+                <option value= "{{ purchase.Product.product_id }}"> {{ purchase.Product.name}} </option>
+                {% for product in products %}
+                {% if product.product_id != purchase.Product.product_id %}
+                <option value="{{ product.product_id }}">{{ product.name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+            <input type="text" name="purchase_quantity" placeholder="Quantity to buy" value="{{purchase.Purchase.purchase_quantity}}">        
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

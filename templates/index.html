@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="topnav">
+    <a id="download" href="/" class="btn btn-danger">MainPage - Contacts</a>
+    <a id="download" href="/product/" class="btn btn-danger">Products</a>
+    <a id="download" href="/purchase/" class="btn btn-danger">Purchases</a>
+</div>
+
+<div class="wrapper">
+    <div class="footer">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h2>New User</h2>
+        <form class="info_form"action="/contact/add_contact/" method="POST">
+            <input type="text" name="fullname" placeholder="Fullname">
+            <input type="text" name="phone" placeholder="Phone">
+            <input type="text" name="email" placeholder="Email">
+        
+            <button type="submit">Save</button>
+        </form>
+    </div>
+    <div class="usertable">
+        <h2>Users Table</h2>
+        <table>
+            <tr>
+                <th>Fullname</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Operations</th>
+                <th>Order</th>
+            </tr>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.fullname }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>
+                        <a href = "/contact/edit/{{ contact.id }}">Edit</a>
+                        <a href = "/contact/delete/{{ contact.id }}">Delete</a>
+                    </td>
+                    <td>
+                        <a href = "/contact/insert_order/{{ contact.id }}">Add Order</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

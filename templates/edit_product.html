@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="topnav">
+    <a id="download" href="/../../" class="btn btn-danger">MainPage - Contacts</a>
+    <a id="download" href="/../../product/" class="btn btn-danger">Products</a>
+    <a id="download" href="/../../purchase/" class="btn btn-danger">Purchases</a>
+</div>
+
+<div class="wrapper">
+    <div class="footer">
+        <h2>Edit Product</h2>
+        <form class="info_form"action="/product/update/{{product.product_id}}" method="POST">
+            <input type="text" name="name" value="{{product.name}}">
+            <input type="text" name="description" value="{{product.description}}">
+            <input type="text" name="price" value={{product.price}}>
+            <input type="text" name="quantity" value={{product.quantity}}>
+        
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
