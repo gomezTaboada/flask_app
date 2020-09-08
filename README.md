@@ -8,7 +8,7 @@ Librerias (python3):
   - simplejson
   - pymysql
   
-3 tablas:
+3 tablas (mysql):
   - contact
   - product
   - purchase
